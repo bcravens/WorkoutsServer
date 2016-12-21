@@ -14,7 +14,7 @@ function validateInput(data, otherValidations) {
   }).fetch().then(workout => {
     if (workout) {
       if (workout.get('name') === data.name) {
-        errors.username = 'You already have a workout with that name'
+        errors.name = 'You already have a workout with that name'
       }
     }
     return {
@@ -25,8 +25,10 @@ function validateInput(data, otherValidations) {
 
 }
 
-router.get('/workouts', (req, res) => {
-  Workouts.query().then( workouts => {
+router.get('/:identifier', (req, res) => {
+  Workouts.query({
+    where: { user_id: req.params.identifier.toString() }
+  }).fetchAll().then( workouts => {
     res.json({ workouts })
   })
 })
