@@ -25,9 +25,9 @@ function validateInput(data, otherValidations) {
 
 }
 
-router.get('/:identifier', (req, res) => {
+router.get('/:user_id', (req, res) => {
   Workouts.query({
-    where: { user_id: req.params.identifier.toString() }
+    where: { user_id: req.params.user_id.toString() }
   }).fetchAll().then( workouts => {
     res.json({ workouts })
   })
